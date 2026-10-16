@@ -17,7 +17,7 @@ public class Empresa {
         this.nombre = nombre;
         this.nit = nit;
         this.direccion = direccion;
-        this.listaSucursales = listaSucursales;
+        this.listaSucursales = new ArrayList<>();
         this.listaPrendas = new ArrayList<>();
         this.listaClientes = new ArrayList<>();
         this.listaVendedores = new ArrayList<>();
@@ -78,4 +78,6 @@ public class Empresa {
     public void setListaVendedores(List<Vendedor> listaVendedores) {
         this.listaVendedores = listaVendedores;
     }
+
+    //Metodos de empresa
 }

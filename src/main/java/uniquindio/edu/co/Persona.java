@@ -2,7 +2,7 @@ package uniquindio.edu.co;
 
 public abstract class Persona {
     private String nombre;
-    private String documento;   
+    private String documento;
     private String correo;
     private String telefono;
 

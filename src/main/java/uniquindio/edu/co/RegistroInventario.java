@@ -1,5 +1,8 @@
 package uniquindio.edu.co;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegistroInventario {
     private String talla;
     private String color;
@@ -8,12 +11,15 @@ public class RegistroInventario {
     private Prenda prenda;
     private Sucursal sucursal;
 
+    private List<DetalleVenta> listaDetalles;
+
     public RegistroInventario(String talla, String color, int cantidadDisponible, Prenda prenda, Sucursal sucursal) {
         this.talla = talla;
         this.color = color;
         this.cantidadDisponible = cantidadDisponible;
         this.prenda = prenda;
         this.sucursal = sucursal;
+        this.listaDetalles = new ArrayList<>();
     }
 
     public String getTalla() {
@@ -54,5 +60,13 @@ public class RegistroInventario {
 
     public void setSucursal(Sucursal sucursal) {
         this.sucursal = sucursal;
+    }
+
+    public List<DetalleVenta> getListaDetalles() {
+        return listaDetalles;
+    }
+
+    public void setListaDetalles(List<DetalleVenta> listaDetalles) {
+        this.listaDetalles = listaDetalles;
     }
 }
