@@ -268,6 +268,115 @@ public class Aplicacion {
                     JOptionPane.showMessageDialog(null, textoCli + "\n" + textoVen);
                     break;
                 case 9:
+                    //Realizar venta
+                    String codigoVenta = JOptionPane.showInputDialog("Codigo de la venta:");
+                    String textoSuc9 = "Sucursales:\n";
+                    for(Sucursal s:emp.getListaSucursales()){
+                        textoSuc9 += "- " + s + "\n";
+                    }
+                    String codigoSucVenta = JOptionPane.showInputDialog(textoSuc9 + "Codigo de la sucursal:");
+                    Sucursal sucVenta = null;
+                    for(Sucursal s:emp.getListaSucursales()){
+                        if(s.getCodigo().equals(codigoSucVenta)){
+                            sucVenta = s;
+                        }
+                    }
+                    if(sucVenta == null){
+                        JOptionPane.showMessageDialog(null, "Sucursal no encontrada.");
+                        break;
+                    }
+                    String textoVen9 = "Vendedores:\n";
+                    for(Vendedor v:emp.getListaVendedores()){
+                        textoVen9 += "- " + v + "\n";
+                    }
+                    String docVenVenta = JOptionPane.showInputDialog(textoVen9 + "Documento del vendedor:");
+                    Vendedor venVenta = null;
+                    for(Vendedor v:emp.getListaVendedores()){
+                        if(v.getDocumento().equals(docVenVenta)){
+                            venVenta = v;
+                        }
+                    }
+                    if(venVenta == null){
+                        JOptionPane.showMessageDialog(null, "Vendedor no encontrado.");
+                        break;
+                    }
+                    if(!venVenta.getSucursal().getCodigo().equals(sucVenta.getCodigo())){
+                        JOptionPane.showMessageDialog(null, "El vendedor no pertenece a esa sucursal.");
+                        break;
+                    }
+                    String textoCli9 = "Clientes:\n";
+                    for(Cliente c:emp.getListaClientes()){
+                        textoCli9 += "- " + c + "\n";
+                    }
+                    String docCliVenta = JOptionPane.showInputDialog(textoCli9 + "Documento del cliente:");
+                    Cliente cliVenta = null;
+                    for(Cliente c:emp.getListaClientes()){
+                        if(c.getDocumento().equals(docCliVenta)){
+                            cliVenta = c;
+                        }
+                    }
+                    if(cliVenta == null){
+                        JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
+                        break;
+                    }
+                    Venta venta = new Venta(codigoVenta, LocalDate.now(), sucVenta, venVenta, cliVenta);
+                    String seguir = "1";
+                    do {
+                        String listaDisp = "";
+                        for(RegistroInventario r:sucVenta.getListaRegistroInventarios()){
+                            listaDisp += "- ref " + r + "\n";
+                        }
+                        if(listaDisp.equals("")){
+                            listaDisp = "(sin registros en esta sucursal, registra existencia primero)\n";
+                        }
+                        String codigoPrendaVenta = JOptionPane.showInputDialog("Disponibles en " + sucVenta.getCodigo() + " " + sucVenta.getNombre() + ":\n" + listaDisp + "\nCodigo de prenda (vacio para terminar):");
+                        if(codigoPrendaVenta == null || codigoPrendaVenta.trim().equals("")){
+                            break;
+                        }
+                        String tallaVenta = JOptionPane.showInputDialog("Talla:");
+                        String colorVenta = JOptionPane.showInputDialog("Color:");
+                        RegistroInventario regVenta = null;
+                        for(RegistroInventario r:sucVenta.getListaRegistroInventarios()){
+                            if(r.getPrenda().getCodigo().equals(codigoPrendaVenta) && r.getTalla().equals(tallaVenta) && r.getColor().equalsIgnoreCase(colorVenta)){
+                                regVenta = r;
+                            }
+                        }
+                        if(regVenta == null){
+                            JOptionPane.showMessageDialog(null, "Esa combinacion no existe en la sucursal.");
+                            continue;
+                        }
+                        int cantidadVenta;
+                        try {
+                            cantidadVenta = Integer.parseInt(JOptionPane.showInputDialog("Cantidad (disponible " + regVenta.getCantidadDisponible() + "):"));
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Cantidad invalida.");
+                            continue;
+                        }
+                        double descuento = cliVenta.getCategoriaAfiliacion().getDescuento();
+                        double recargo = regVenta.getPrenda().getCategoria().getSobreCargo() * 100;
+                        DetalleVenta det = new DetalleVenta(regVenta, cantidadVenta, descuento);
+                        venta.agregarDetalle(det);
+                        JOptionPane.showMessageDialog(null, "Prenda " + regVenta.getPrenda().getCodigo() + "\nRecargo " + recargo + "%\nDescuento cliente " + descuento + "%\nPrecio final $" + det.getPrecioUnitarioFinal());
+                        seguir = JOptionPane.showInputDialog("Detalle agregado subtotal $" + det.getSubTotal() + "\n1. Agregar otro\n0. Terminar");
+                        if(seguir == null){
+                            break;
+                        }
+                    } while(seguir.equals("1"));
+                    if(venta.getDetalles().size() == 0){
+                        JOptionPane.showMessageDialog(null, "Venta vacia, cancelada.");
+                        break;
+                    }
+                    if(emp.confirmarVenta(venta)){
+                        String textoVenta = "Venta confirmada.\n";
+                        for(DetalleVenta d:venta.getDetalles()){
+                            textoVenta += "- " + d + "\n";
+                        }
+                        textoVenta += "Total $" + venta.calcularTotal();
+                        JOptionPane.showMessageDialog(null, textoVenta);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se pudo confirmar, revisa stock o sucursal.");
+                    }
+                    break;
 
                 case 10:
                     //Ventas de un vendedor
