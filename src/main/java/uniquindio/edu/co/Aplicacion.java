@@ -405,8 +405,30 @@ public class Aplicacion {
                     JOptionPane.showMessageDialog(null, textoCli11);
                     break;
                 case 12:
+                    //Ingresos por sucursal
+                    String textoSuc12 = "Sucursales:\n";
+                    for(Sucursal s:emp.getListaSucursales()){
+                        textoSuc12 += "- " + s + "\n";
+                    }
+                    String codigoSuc12 = JOptionPane.showInputDialog(textoSuc12 + "Codigo de la sucursal:");
+                    JOptionPane.showMessageDialog(null, "Ingresos suc " + codigoSuc12 + " $" + emp.ingresosPorSucursal(codigoSuc12));
+                    break;
 
                 case 13:
+                    //Prenda mas vendida
+                    String top = emp.prendaMasVendida();
+                    if(top == null){
+                        JOptionPane.showMessageDialog(null, "Aun no hay ventas.");
+                    }else{
+                        String nombreTop = top;
+                        for(Prenda p:emp.getListaPrendas()){
+                            if(p.getCodigo().equals(top)){
+                                nombreTop = top + " - " + p.getNombre();
+                            }
+                        }
+                        JOptionPane.showMessageDialog(null, "Prenda mas vendida: " + nombreTop);
+                    }
+                    break;
 
                 case 14:
                     //Calcular precio final
