@@ -44,4 +44,8 @@ public class DetalleVenta {
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
+
+    public String toString(){
+        return registro.getPrenda().getCodigo() + " talla " + registro.getTalla() + " " + registro.getColor() + " x" + cantidad + " $" + subTotal;
+    }
 }

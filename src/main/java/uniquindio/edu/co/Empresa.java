@@ -13,14 +13,14 @@ public class Empresa {
     private List<Cliente> listaClientes;
     private List<Vendedor> listaVendedores;
 
-    public Empresa(String nombre, int nit, String direccion, List<Sucursal> listaSucursales, List<Prenda> listaPrendas, List<Cliente> listaClientes, List<Vendedor> listaVendedores) {
+    public Empresa(String nombre, int nit, String direccion) {
         this.nombre = nombre;
         this.nit = nit;
         this.direccion = direccion;
-        this.listaSucursales = new ArrayList<>();
-        this.listaPrendas = new ArrayList<>();
-        this.listaClientes = new ArrayList<>();
-        this.listaVendedores = new ArrayList<>();
+        listaSucursales = new ArrayList<>();
+        listaPrendas = new ArrayList<>();
+        listaClientes = new ArrayList<>();
+        listaVendedores = new ArrayList<>();
     }
 
     public String getNombre() {

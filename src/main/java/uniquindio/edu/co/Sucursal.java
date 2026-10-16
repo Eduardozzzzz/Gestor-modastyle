@@ -13,14 +13,14 @@ public class Sucursal {
     private List<Vendedor> listaVendedores;
     private List<Venta> listaVentas;
 
-    public Sucursal(String nombre, String codigo, String direccion, String ciudad, List<RegistroInventario>  listaRegistroInventarios, List<Vendedor> listaVendedores,  List<Venta> listaVentas) {
+    public Sucursal(String nombre, String codigo, String direccion, String ciudad) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.direccion = direccion;
         this.ciudad = ciudad;
-        this.listaRegistroInventarios = new ArrayList<>();
-        this.listaVendedores = new ArrayList<>();
-        this.listaVentas = new ArrayList<>();
+        listaRegistroInventarios = new ArrayList<>();
+        listaVendedores = new ArrayList<>();
+        listaVentas = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -77,5 +77,9 @@ public class Sucursal {
 
     public void setListaVentas(List<Venta> listaVentas) {
         this.listaVentas = listaVentas;
+    }
+
+    public String toString(){
+        return codigo + " - " + nombre + " " + ciudad;
     }
 }

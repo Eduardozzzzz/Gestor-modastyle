@@ -81,4 +81,8 @@ public class Venta {
     public void setDetalles(List<DetalleVenta> detalles) {
         this.detalles = detalles;
     }
+
+    public String toString(){
+        return codigo + " " + fecha + " total $" + calcularTotal();
+    }
 }

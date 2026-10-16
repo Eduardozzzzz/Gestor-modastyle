@@ -13,14 +13,14 @@ public class Prenda {
 
     private CategoriaPrenda categoria;
 
-    public Prenda(String nombre, String codigo, String marca, double precioUnitario, List<RegistroInventario> listaRegistroInventarios, CategoriaPrenda categoria) {
+    public Prenda(String nombre, String codigo, String marca, double precioUnitario, CategoriaPrenda categoria) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.marca = marca;
         this.precioUnitario = precioUnitario;
         this.categoria = categoria;
 
-        this.listaRegistroInventarios = new ArrayList<>();
+        listaRegistroInventarios = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -73,5 +73,9 @@ public class Prenda {
 
     public double calcularPrecioConRecargo(){
         return precioUnitario*(1+ categoria.getSobreCargo());
+    }
+
+    public String toString(){
+        return codigo + " - " + nombre + " " + marca + " $" + precioUnitario + " " + categoria;
     }
 }

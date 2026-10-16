@@ -41,4 +41,8 @@ public class Cliente extends Persona{
         this.listaVentas = listaVentas;
     }
 
+    public String toString(){
+        return getDocumento() + " - " + getNombre() + " " + CategoriaAfiliacion;
+    }
+
 }

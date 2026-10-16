@@ -59,4 +59,8 @@ public class Vendedor extends Persona{
     public void setListaVentas(List<Venta> listaVentas) {
         this.listaVentas = listaVentas;
     }
+
+    public String toString(){
+        return getDocumento() + " - " + getNombre();
+    }
 }

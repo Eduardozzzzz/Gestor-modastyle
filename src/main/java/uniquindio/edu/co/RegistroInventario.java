@@ -69,4 +69,8 @@ public class RegistroInventario {
     public void setListaDetalles(List<DetalleVenta> listaDetalles) {
         this.listaDetalles = listaDetalles;
     }
+
+    public String toString(){
+        return prenda.getCodigo() + " " + prenda.getNombre() + " | talla " + talla + " | color " + color + " | cant " + cantidadDisponible;
+    }
 }
