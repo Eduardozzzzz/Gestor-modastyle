@@ -181,6 +181,38 @@ public class Aplicacion {
                     }
                     break;
                 case 6:
+                    //Registrar cliente
+                    String nombreCli = JOptionPane.showInputDialog("Nombre del cliente:");
+                    String docCli = JOptionPane.showInputDialog("Documento del cliente:");
+                    String correoCli = JOptionPane.showInputDialog("Correo del cliente:");
+                    String telCli = JOptionPane.showInputDialog("Telefono del cliente:");
+                    String codAfil = JOptionPane.showInputDialog("Codigo de afiliacion:");
+                    //Registrar categoria
+                    String catAfil = "";
+                    CategoriaAfiliacion categoriaAfil = null;
+                    while(true){
+                        catAfil = JOptionPane.showInputDialog("Categoria:\n- Bronce\n- Plata\n- Oro");
+                        if(catAfil == null){
+                            break;
+                        }
+                        try {
+                            categoriaAfil = CategoriaAfiliacion.valueOf(catAfil.trim().toUpperCase());
+                            break;
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, "Categoria invalida.");
+                        }
+                    }
+                    if(categoriaAfil == null){
+                        JOptionPane.showMessageDialog(null, "Registro cancelado.");
+                        break;
+                    }
+                    Cliente cli = new Cliente(nombreCli, docCli, correoCli, telCli, codAfil, categoriaAfil);
+                    if(emp.registrarCliente(cli)){
+                        JOptionPane.showMessageDialog(null, "Cliente registrado correctamente.");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El cliente no se pudo registrar, documento duplicado.");
+                    }
+                    break;
 
                 case 7:
 
