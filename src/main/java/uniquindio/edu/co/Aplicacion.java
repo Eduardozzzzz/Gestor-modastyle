@@ -215,6 +215,45 @@ public class Aplicacion {
                     break;
 
                 case 7:
+                    //Registrar vendedor
+                    String nombreVen = JOptionPane.showInputDialog("Nombre del vendedor:");
+                    String docVen = JOptionPane.showInputDialog("Documento del vendedor:");
+                    String correoVen = JOptionPane.showInputDialog("Correo del vendedor:");
+                    String telVen = JOptionPane.showInputDialog("Telefono del vendedor:");
+                    String codEmp = JOptionPane.showInputDialog("Codigo de empleado:");
+                    double salarioVen;
+                    while(true){
+                        try {
+                            salarioVen = Double.parseDouble(JOptionPane.showInputDialog("Salario basico:"));
+                            break;
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Salario invalido, intentelo de nuevo.");
+                        } catch (HeadlessException e) {
+                            JOptionPane.showMessageDialog(null, "Salario invalido, intentelo de nuevo.");
+                        }
+                    }
+                    String textoSucVen = "Sucursales:\n";
+                    for(Sucursal s:emp.getListaSucursales()){
+                        textoSucVen += "- " + s + "\n";
+                    }
+                    String codigoSucVen = JOptionPane.showInputDialog(textoSucVen + "Codigo de la sucursal del vendedor:");
+                    Sucursal sucVen = null;
+                    for(Sucursal s:emp.getListaSucursales()){
+                        if(s.getCodigo().equals(codigoSucVen)){
+                            sucVen = s;
+                        }
+                    }
+                    if(sucVen == null){
+                        JOptionPane.showMessageDialog(null, "Sucursal no encontrada.");
+                        break;
+                    }
+                    Vendedor ven = new Vendedor(nombreVen, docVen, correoVen, telVen, codEmp, LocalDate.now(), salarioVen, sucVen);
+                    if(emp.registrarVendedor(ven)){
+                        JOptionPane.showMessageDialog(null, "Vendedor registrado correctamente.");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El vendedor no se pudo registrar, documento duplicado.");
+                    }
+                    break;
 
                 case 8:
                     //Mostrar clientes / vendedores
